@@ -1,7 +1,5 @@
 def input_students
   puts "Please enter the names of the students"
-  puts "Program will print students whose name starts from 'K' and their position on the list. "
-  puts "Only names shorter than 12 characters will be printed. "
   puts "To finish, just hit return twice"
   students = []
   name = gets.chomp
@@ -18,21 +16,25 @@ def print_header
   puts "--------------------------------"
 end
 
-def print(students)
-  students.each_with_index do |student, index|
-    if student[:name][0] == "K" || student[:name][0] == "k"
-      if student[:name].length < 12
-       puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
-      end
-    end
-  end
-end
-
 def print_footer(names)
   puts "Overall, we have #{names.count} great students"
 end
 
-students = input_students
-print_header
-print(students)
-print_footer(students)
+  students = input_students
+  print_header
+
+  # To replace .each with while I needed to:
+  # convert students array to hash
+  hash = students[0]
+  # while loop will require a variable count
+  count = 0
+  # I needed to define length
+  length = students.length
+  # Below working while loop replacing .each method
+  while count < length do
+    puts "#{hash[:name]} (#{hash[:cohort]} cohort)"
+    count += 1
+    hash = students[count]
+  end
+  # I needed to call footer function from the bottom to keep the same structure
+  print_footer(students)
