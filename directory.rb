@@ -1,19 +1,14 @@
 def input_students
   puts "Please enter the names of the students"
+  puts "Program will print students whose name starts from 'K' and their position on the list. "
   puts "To finish, just hit return twice"
-  # empty array to store student's names
   students = []
-  # getting the first name 
   name = gets.chomp
-  # while the name is not empty below code will be executed 
   while !name.empty? do
-    # adds the student hash to the array
     students << {name: name, cohort: :november}
     puts "Now we have #{students.count} students"
-    # gets another name from the user
     name = gets.chomp
   end
-  # returns the array of names entered
   students
 end
 
@@ -23,8 +18,10 @@ def print_header
 end
 
 def print(students)
-  students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)"
+  students.each_with_index do |student, index|
+    if student[:name][0] == "K" || student[:name][0] == "k"
+    puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    end
   end
 end
 
