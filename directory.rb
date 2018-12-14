@@ -1,6 +1,7 @@
 def input_students
   puts "Please enter the names of the students"
   puts "Program will print students whose name starts from 'K' and their position on the list. "
+  puts "Only names shorter than 12 characters will be printed. "
   puts "To finish, just hit return twice"
   students = []
   name = gets.chomp
@@ -20,7 +21,9 @@ end
 def print(students)
   students.each_with_index do |student, index|
     if student[:name][0] == "K" || student[:name][0] == "k"
-    puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+      if student[:name].length < 12
+       puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+      end
     end
   end
 end
@@ -33,4 +36,3 @@ students = input_students
 print_header
 print(students)
 print_footer(students)
-
