@@ -1,22 +1,19 @@
 def input_students
   puts "Please enter the names of the students, hobbies, height and countries of birth"
-  puts "To finish, just hit return twice"
+  puts "To finish, hit return 4 times"
   students = []
   name = gets.chomp()
-  # Added hobby, country & height variables to store additional input
   hobby = gets.chomp()
-  height = gets.chomp()
   country = gets.chomp()
-  
+  height = gets.chomp()
 
   while !name.empty? do
     students << {name: name, hobby: hobby, country: country, height: height, cohort: :november}
     puts "Now we have #{students.count} students"
-    name = gets.chomp
-    # Added hobby, country & height variables to store additional input
+    name = gets.chomp()
     hobby = gets.chomp()
-    height = gets.chomp()
     country = gets.chomp()
+    height = gets.chomp()
   end
   students
 end
@@ -33,13 +30,13 @@ end
 students = input_students
 print_header
 
-  hash = students[0]
-  count = 0
-  length = students.length
+hash = students[0]
+count = 0
+length = students.length
 
 while count < length do
-  # Added hobby, country & height to be printed out with each student
-  puts "#{hash[:name]} #{hash[:hobby]} #{hash[:height]} #{hash[:country]} (#{hash[:cohort]} cohort)"
+  # Added .center method to align the output
+  puts "#{hash[:name].center(20)} #{hash[:hobby].to_s.center(20)} #{hash[:country].center(20)} #{hash[:height].to_s.center(20)} (#{hash[:cohort]} cohort)"
   count += 1
   hash = students[count]
 end
