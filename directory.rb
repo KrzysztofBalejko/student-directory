@@ -1,11 +1,9 @@
 @students = []
 
 def print_menu
-  puts "1. Input the students"
-  puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
-  puts "9. Exit"
+  # Number of 'puts' reduced to 2 lines instead of 4
+  puts "1. Input the students", "2. Show the students", "3. Save the list"
+  puts "4. Load the list from file", "5. Exit"
 end
 
 def show_students
@@ -24,7 +22,7 @@ def process(selection)
     save_students
   when "4"
     load_students
-  when "9"
+  when "5"
     exit
   else
     puts "I don't know what you meant, try again"
@@ -39,8 +37,8 @@ def interactive_menu
 end
 
 def input_students
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
+  # Number of 'puts' reduced to 1 one line instead of 2
+  puts "Please enter the names of the students", "To finish, hit return twice"
   @name = STDIN.gets.chomp
   while !@name.empty? do
     student_data_base
@@ -54,8 +52,8 @@ def student_data_base
 end
 
 def print_header
-  puts "The students of Villains Academy"
-  puts "--------------------------------"
+  # Number of 'puts' reduced to 1 one line instead of 2
+  puts "The students of Villains Academy", "--------------------------------"
 end
 
 def print_students_list
@@ -87,18 +85,17 @@ def load_students(filename = "students.csv")
   file.close
 end
 
-# Modified function will load student.csv by default if found by program or load any given csv.
-def try_load_students
+def load_from_file
   filename = ARGV.first
  if File.exist?(filename.to_s)
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
- end
+  end
   if filename.nil? && File.exist?(filename = 'students.csv')
     load_students(filename = 'students.csv')
     puts "Loaded #{@students.count} from 'students.csv' "
   end
 end
 
-try_load_students
+load_from_file
 interactive_menu
