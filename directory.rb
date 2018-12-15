@@ -13,7 +13,12 @@ def input_students
 
   while !name.empty? do
     students << {name: name, hobby: hobby, country: country, height: height, cohort: cohort}
-    puts "Now we have #{students.count} students"
+    # correcting typo if student number is 1
+    if students.count == 1
+      puts "Now we have #{students.count} student"
+    else
+      puts "Now we have #{students.count} students"
+    end
     name = gets.chomp()
     hobby = gets.chomp()
     break if name == '' && hobby == ''
@@ -34,11 +39,10 @@ def print_header
   puts "The students of Villains Academy", "--------------------------------"
 end
 
-#while loop removed. Added 'grouped_by_cohort' function.
 def grouped_by_cohort(students)
   puts "Please enter cohort which should be listed"
   co = gets.chomp
-print_header
+  print_header
 students.collect do |item|
   if "#{item[:cohort]}" == co
     puts "#{item[:name].center(20)} #{item[:hobby].to_s.center(20)} #{item[:height].to_s.center(20)} #{item[:country].center(20)} (#{item[:cohort]} cohort)"
