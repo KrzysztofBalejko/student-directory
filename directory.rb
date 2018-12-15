@@ -2,7 +2,11 @@ def input_students
   puts "Please enter the names of the students, hobbies, height and countries of birth"
   puts "To finish, hit return 2 times"
   students = []
-  name = gets.chomp()
+  # Alternative to name = gets.chomp()
+  name = ""
+  name = name + "\r\n"
+  name = gets.chop
+  # --------------
   hobby = gets.chomp()
   exit(0) if name == '' && hobby == ''
   country = gets.chomp()
@@ -13,7 +17,6 @@ def input_students
 
   while !name.empty? do
     students << {name: name, hobby: hobby, country: country, height: height, cohort: cohort}
-    # correcting typo if student number is 1
     if students.count == 1
       puts "Now we have #{students.count} student"
     else
