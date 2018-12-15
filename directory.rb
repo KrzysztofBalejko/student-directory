@@ -10,7 +10,7 @@ def show_students
   print_students_list
   print_footer
 end
-# New function improves user experience
+
 def confirmation
   puts " ","-Action was successful-"," "
 end
@@ -23,10 +23,15 @@ def process(selection)
   when "2"
     confirmation
     show_students
+  # Added new functionality. User can now give files names
   when "3"
+    puts "Please give your file a name followed by extension"
+    @users_file_save = STDIN.gets.chomp
     confirmation
     save_students
   when "4"
+    puts "Please enter your file name followed by extension"
+    @users_file_load = STDIN.gets.chomp
     confirmation
     load_students
   when "5"
@@ -72,7 +77,7 @@ def print_footer
 end
 
 def save_students
-  file = File.open("students.csv", "w")
+  file = File.open(@users_file_save, "w")
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
@@ -81,7 +86,7 @@ def save_students
   file.close
 end
 
-def load_students(filename = "students.csv")
+def load_students(filename = @users_file_load)
   file = File.open(filename, "r")
   file.readlines.each do |line|
     @name, cohort = line.chomp.split(',')
