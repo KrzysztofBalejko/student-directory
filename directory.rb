@@ -41,12 +41,17 @@ end
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
-  name = STDIN.gets.chomp
-  while !name.empty? do
-    @students << {name: name, cohort: :november}
+  @name = STDIN.gets.chomp
+  while !@name.empty? do
+    # @students << {name: name, cohort: :january} replaced by student_data_base
+    student_data_base
     puts "Now we have #{@students.count} students"
-    name = STDIN.gets.chomp
+    @name = STDIN.gets.chomp
   end
+end
+# New function to DRY the code
+def student_data_base
+  @students << {name: @name, cohort: :january}
 end
 
 def print_header
@@ -77,12 +82,13 @@ end
 def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
-    name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+    @name, cohort = line.chomp.split(',')
+    student_data_base
+    # @students << {name: name, cohort: cohort.to_sym} replaced by student_data_base
   end
   file.close
 end
-# New function will allow to load a file from command line
+
 def try_load_students
   filename = ARGV.first
   return if filename.nil?
