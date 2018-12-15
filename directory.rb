@@ -1,62 +1,62 @@
-def input_students
-  puts "Please enter the names of the students, hobbies, height and countries of birth"
-  puts "To finish, hit return 2 times"
-  students = []
-  # Alternative to name = gets.chomp()
-  name = ""
-  name = name + "\r\n"
-  name = gets.chop
-  # --------------
-  hobby = gets.chomp()
-  # Code allows to exit the program in case there is no first name. Commented out to test "if" statement in grouped_by_cohort
-  # exit(0) if name == '' && hobby == ''
-  country = gets.chomp()
-  height = gets.chomp()
-  puts "Please enter the cohort"
-  value = gets.chomp()
-  value.length < 3 ? cohort = :november : cohort = value.to_sym
-
-  while !name.empty? do
-    students << {name: name, hobby: hobby, country: country, height: height, cohort: cohort}
-    if students.count == 1
-      puts "Now we have #{students.count} student"
-    else
-      puts "Now we have #{students.count} students"
-    end
-    name = gets.chomp()
-    hobby = gets.chomp()
-    break if name == '' && hobby == ''
-    country = gets.chomp()
-    height = gets.chomp()
-    puts "Please enter the cohort"
-    value = gets.chomp()
-    value.length < 3 ? cohort = :november : cohort = value.to_sym
-  end
-  students
+@students = []
+# Adding interactive menu
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "9. Exit"
 end
 
-def print_footer(names)
-  puts "Overall, we have #{names.count} great students"
+def show_students
+  print_header
+  print_students_list
+  print_footer
+end
+
+def process(selection)
+  case selection
+  when "1"
+    input_students
+  when "2"
+    show_students
+  when "9"
+    exit
+  else
+    puts "I don't know what you meant, try again"
+  end
+end
+
+def interactive_menu
+  loop do
+    print_menu
+    process(gets.chomp)
+  end
+end
+
+# After 12 excercises, retrun to simple form of the program with basic functionality
+def input_students
+  puts "Please enter the names of the students"
+  puts "To finish, just hit return twice"
+  name = gets.chomp
+  while !name.empty? do
+    @students << {name: name, cohort: :november}
+    puts "Now we have #{@students.count} students"
+    name = gets.chomp
+  end
 end
 
 def print_header
-  puts "The students of Villains Academy", "--------------------------------"
+  puts "The students of my cohort at Makers Academy"
+  puts "--------------------------------"
 end
 
-def grouped_by_cohort(students)
-  # If statement will stop code from executing if there are no students in array
- if students.length > 0
-  puts "Please enter cohort which should be listed"
-  co = gets.chomp
-  print_header
-  students.collect do |item|
-   if "#{item[:cohort]}" == co
-      puts "#{item[:name].center(20)} #{item[:hobby].to_s.center(20)} #{item[:height].to_s.center(20)} #{item[:country].center(20)} (#{item[:cohort]} cohort)"
-   end
+def print_students_list
+  @students.each do |student|
+   puts "#{student[:name]} (#{student[:cohort]} cohort)"
   end
- end
 end
 
-students = input_students
-grouped_by_cohort(students)
-print_footer(students)
+def print_footer
+  puts "Overall, we have #{@students.count} great students"
+end
+
+interactive_menu
