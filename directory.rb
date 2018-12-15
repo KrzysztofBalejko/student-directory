@@ -43,13 +43,12 @@ def input_students
   puts "To finish, just hit return twice"
   @name = STDIN.gets.chomp
   while !@name.empty? do
-    # @students << {name: name, cohort: :january} replaced by student_data_base
     student_data_base
     puts "Now we have #{@students.count} students"
     @name = STDIN.gets.chomp
   end
 end
-# New function to DRY the code
+
 def student_data_base
   @students << {name: @name, cohort: :january}
 end
@@ -84,20 +83,20 @@ def load_students(filename = "students.csv")
   file.readlines.each do |line|
     @name, cohort = line.chomp.split(',')
     student_data_base
-    # @students << {name: name, cohort: cohort.to_sym} replaced by student_data_base
   end
   file.close
 end
 
+# Modified function will load student.csv by default if found by program or load any given csv.
 def try_load_students
   filename = ARGV.first
-  return if filename.nil?
-  if File.exist?(filename)
+ if File.exist?(filename.to_s)
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
-  else
-    puts "Sorry, #{filename} doesn't exist."
-    exit
+ end
+  if filename.nil? && File.exist?(filename = 'students.csv')
+    load_students(filename = 'students.csv')
+    puts "Loaded #{@students.count} from 'students.csv' "
   end
 end
 
