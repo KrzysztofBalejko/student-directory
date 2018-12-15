@@ -1,8 +1,23 @@
 @students = []
-# Adding interactive menu
+
+# New function will allow to save a list in csv file
+def save_students
+  # open the file for writing
+  file = File.open("students.csv", "w")
+  # iterate over the array of students
+  @students.each do |student|
+    student_data = [student[:name], student[:cohort]]
+    csv_line = student_data.join(",")
+    file.puts csv_line
+  end
+  file.close
+end
+
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
+  # Adding an option to save a list of students
+  puts "3. Save the list to students.csv"
   puts "9. Exit"
 end
 
@@ -18,6 +33,9 @@ def process(selection)
     input_students
   when "2"
     show_students
+    # Additional process - saving
+  when "3"
+    save_students
   when "9"
     exit
   else
@@ -32,7 +50,6 @@ def interactive_menu
   end
 end
 
-# After 12 excercises, retrun to simple form of the program with basic functionality
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
@@ -45,7 +62,8 @@ def input_students
 end
 
 def print_header
-  puts "The students of my cohort at Makers Academy"
+  # Change of the output
+  puts "The students of Villains Academy"
   puts "--------------------------------"
 end
 
