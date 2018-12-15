@@ -1,7 +1,6 @@
 @students = []
 
 def print_menu
-  # Number of 'puts' reduced to 2 lines instead of 4
   puts "1. Input the students", "2. Show the students", "3. Save the list"
   puts "4. Load the list from file", "5. Exit"
 end
@@ -11,16 +10,24 @@ def show_students
   print_students_list
   print_footer
 end
+# New function improves user experience
+def confirmation
+  puts " ","-Action was successful-"," "
+end
 
 def process(selection)
   case selection
   when "1"
+    confirmation
     input_students
   when "2"
+    confirmation
     show_students
   when "3"
+    confirmation
     save_students
   when "4"
+    confirmation
     load_students
   when "5"
     exit
@@ -37,8 +44,7 @@ def interactive_menu
 end
 
 def input_students
-  # Number of 'puts' reduced to 1 one line instead of 2
-  puts "Please enter the names of the students", "To finish, hit return twice"
+  puts "Please enter the names of the students", "To finish, just hit return twice"
   @name = STDIN.gets.chomp
   while !@name.empty? do
     student_data_base
@@ -52,7 +58,6 @@ def student_data_base
 end
 
 def print_header
-  # Number of 'puts' reduced to 1 one line instead of 2
   puts "The students of Villains Academy", "--------------------------------"
 end
 
