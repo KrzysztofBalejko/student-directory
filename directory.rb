@@ -8,7 +8,8 @@ def input_students
   name = gets.chop
   # --------------
   hobby = gets.chomp()
-  exit(0) if name == '' && hobby == ''
+  # Code allows to exit the program in case there is no first name. Commented out to test "if" statement in grouped_by_cohort
+  # exit(0) if name == '' && hobby == ''
   country = gets.chomp()
   height = gets.chomp()
   puts "Please enter the cohort"
@@ -43,12 +44,15 @@ def print_header
 end
 
 def grouped_by_cohort(students)
+  # If statement will stop code from executing if there are no students in array
+ if students.length > 0
   puts "Please enter cohort which should be listed"
   co = gets.chomp
   print_header
-students.collect do |item|
-  if "#{item[:cohort]}" == co
-    puts "#{item[:name].center(20)} #{item[:hobby].to_s.center(20)} #{item[:height].to_s.center(20)} #{item[:country].center(20)} (#{item[:cohort]} cohort)"
+  students.collect do |item|
+   if "#{item[:cohort]}" == co
+      puts "#{item[:name].center(20)} #{item[:hobby].to_s.center(20)} #{item[:height].to_s.center(20)} #{item[:country].center(20)} (#{item[:cohort]} cohort)"
+   end
   end
  end
 end
