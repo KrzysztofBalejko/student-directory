@@ -1,10 +1,17 @@
 @students = []
 
-# New function will allow to save a list in csv file
+# New function will allow to load a list from csv file
+def load_students
+  file = File.open("students.csv", "r")
+  file.readlines.each do |line|
+  name, cohort = line.chomp.split(',')
+    @students << {name: name, cohort: cohort.to_sym}
+  end
+  file.close
+end
+
 def save_students
-  # open the file for writing
   file = File.open("students.csv", "w")
-  # iterate over the array of students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
@@ -16,8 +23,9 @@ end
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  # Adding an option to save a list of students
   puts "3. Save the list to students.csv"
+  # Adding an option to load the list from csv file to my menu
+  puts "4. Load the list from students.csv"
   puts "9. Exit"
 end
 
@@ -33,9 +41,11 @@ def process(selection)
     input_students
   when "2"
     show_students
-    # Additional process - saving
   when "3"
     save_students
+    # Additional process - loading data from a file
+  when "4"
+    load_students
   when "9"
     exit
   else
@@ -62,7 +72,6 @@ def input_students
 end
 
 def print_header
-  # Change of the output
   puts "The students of Villains Academy"
   puts "--------------------------------"
 end
