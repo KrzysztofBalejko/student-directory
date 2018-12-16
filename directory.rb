@@ -74,17 +74,17 @@ end
 def print_footer
   puts "Overall, we have #{@students.count} great students"
 end
-# Applying code block to make the file close automatically
+
+require 'csv'
+# save_students function will use CSV library to store the data
 def save_students
-  File.open(@users_file_save, "w") do |file|
+  CSV.open(@users_file_save, "wb") do |file|
   @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+    file << student_data = [student[:name], student[:cohort]]
    end
   end
 end
-# Applying code block to make the file close automatically
+
 def load_students(filename = @users_file_load)
   File.open(filename, "r") do |file|
   file.readlines.each do |line|
