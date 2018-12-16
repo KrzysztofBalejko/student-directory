@@ -23,7 +23,6 @@ def process(selection)
   when "2"
     confirmation
     show_students
-  # Added new functionality. User can now give files names
   when "3"
     puts "Please give your file a name followed by extension"
     @users_file_save = STDIN.gets.chomp
@@ -75,24 +74,24 @@ end
 def print_footer
   puts "Overall, we have #{@students.count} great students"
 end
-
+# Applying code block to make the file close automatically
 def save_students
-  file = File.open(@users_file_save, "w")
+  File.open(@users_file_save, "w") do |file|
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
     file.puts csv_line
+   end
   end
-  file.close
 end
-
+# Applying code block to make the file close automatically
 def load_students(filename = @users_file_load)
-  file = File.open(filename, "r")
+  File.open(filename, "r") do |file|
   file.readlines.each do |line|
     @name, cohort = line.chomp.split(',')
     student_data_base
   end
-  file.close
+ end
 end
 
 def load_from_file
